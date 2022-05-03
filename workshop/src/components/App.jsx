@@ -14,8 +14,10 @@ class App extends Component {
       gifs: [],
       selectedGifId: "gG6OcTSRWaSis"
     };
-
+    // the functions search and selectGif are first
+    // called in the constructor.
     this.search("homer thinking");
+    this.selectGif = this.selectGif.bind(this);
   }
 
   search = (query) => {
@@ -31,6 +33,13 @@ class App extends Component {
       this.setState({
         gifs: result.data
       });
+    });
+  };
+
+  // selectGif is called with id as props and change the state selectedGifId
+  selectGif(id) {
+    this.setState({
+      selectedGifId: id
     });
   };
 
@@ -54,7 +63,8 @@ class App extends Component {
           </div>
         </div>
         <div className="right-scene">
-          <GifList gifs={this.state.gifs}/>
+          {/* GifList takes the selectGif function as props */}
+          <GifList gifs={this.state.gifs} selectGif={this.selectGif}/>
         </div>
       </div>
     );
